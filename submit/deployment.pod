@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: submit-deployment
+spec:
+  replicas:   
+  selector:
+    matchLabels:
+      app: submit
+  template:
+    metadata:
+      labels:
+        app: submit
+    spec:
+      containers:
+      - name: submit
+        image: armansk9129/myapp4:submit
+        ports:
+        - containerPort: 80  
+

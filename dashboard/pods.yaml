@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: myapp-dashboard-pod
+  labels:
+    app: dashboard
+spec:
+  containers:
+  - name: myapp-dashboard-container
+    image: armansk9129/myapp1:dashboard
+    ports:
+    - containerPort: 80
