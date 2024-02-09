@@ -1,0 +1,47 @@
+root@DESKTOP-0ANCI6F:~/git_repo (k8s_kind)# kubectl get pod
+NAME                                 READY   STATUS    RESTARTS   AGE
+login-controller-4h87h               1/1     Running   0          64m
+login-controller-lvxrw               1/1     Running   0          64m
+login-controller-xp6zr               1/1     Running   0          64m
+myapp-dashboard-pod                  1/1     Running   0          65m
+search-replicaset-bcg7b              1/1     Running   0          64m
+search-replicaset-qt59f              1/1     Running   0          64m
+submit-deployment-6c45cddf86-gk899   1/1     Running   0          63m
+
+
+root@DESKTOP-0ANCI6F:~/git_repo (k8s_kind)# kubectl describe replicationcontroller
+Name:         login-controller
+Namespace:    default
+Selector:     app=login
+Labels:       app=login
+
+root@DESKTOP-0ANCI6F:~/git_repo (k8s_kind)# kubectl  describe replicasets
+Name:         search-replicaset
+Namespace:    default
+Selector:     app=search
+Labels:       <none>
+Annotations:  <none>
+Replicas:     2 current / 2 desired
+Pods Status:  2 Running / 0 Waiting / 0 Succeeded / 0 Failed
+Pod Template:
+
+root@DESKTOP-0ANCI6F:~/git_repo (k8s_kind)# kubectl  describe pod
+Name:             login-controller-4h87h
+Namespace:        default
+Priority:         0
+Service Account:  default
+Node:             worker-0/172.31.30.119
+
+root@DESKTOP-0ANCI6F:~/git_repo/login (master)# kubectl apply -f rc.pod
+replicationcontroller/login-controller created
+
+root@DESKTOP-0ANCI6F:~/git_repo/search (master)# kubectl apply -f rs.yaml
+replicaset.apps/search-replicaset created
+
+root@DESKTOP-0ANCI6F:/mnt/d/VISUAL_STUDIO/k8s# kubectl get svc -o wide
+NAME            TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE    SELECTOR
+kubernetes      ClusterIP   10.96.0.1       <none>        443/TCP        3h4m   <none>
+nginx-service   NodePort    10.105.121.29   <none>        80:32579/TCP   80s    app=myapp
+
+
+root@DESKTOP-0ANCI6F:/mnt/d/VISUAL_STUDIO/k8s# kubectl pod delete myapp-dashboard-pod
